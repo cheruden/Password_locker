@@ -52,7 +52,7 @@ class TestCredentials(unittest.TestCase):
 		"""
 		test_auth_check test case to test if the user provided correct information
 		"""
-		self.new_user = Users("komo", "James", "pswd002")
+		self.new_user = Users("cheru", "Dennis", "pswd002")
 		self.new_user.create_user()
 		another_user = Users("user2", "othername", "pswd003")
 		another_user.create_user()
@@ -67,15 +67,15 @@ class TestCredentials(unittest.TestCase):
 		test_setUp to create a new Credentials object to begin tests
 		"""
 
-		self.new_cred = Credentials("komo", "james", "IG", "pswd001")
+		self.new_cred = Credentials("cheru", "Dennis", "IG", "pswd001")
 
 	def test_init(self):
 		"""
 		test_init to check if the Credentials objects are initialized correctly
 		"""
-		self.new_cred = Credentials("komo", "james", "IG", "pswd001")
-		self.assertEqual(self.new_cred.name, "komo")
-		self.assertEqual(self.new_cred.username, "james")
+		self.new_cred = Credentials("cheru", "Dennis", "IG", "pswd001")
+		self.assertEqual(self.new_cred.name, "cheru")
+		self.assertEqual(self.new_cred.username, "Dennis")
 		self.assertEqual(self.new_cred.platform, "IG")
 		self.assertEqual(self.new_cred.pwd, "pswd001")
 
@@ -83,7 +83,7 @@ class TestCredentials(unittest.TestCase):
 		"""
 		test_save_cred to check if the initialized object is saved to credentials_info
 		"""
-		self.new_cred = Credentials("komo", "james", "IG", "pswd001")
+		self.new_cred = Credentials("cheru", "Dennis", "IG", "pswd001")
 		self.new_cred.save_cred()
 		self.assertEqual(len(Credentials.credentials_info), 5)
 
@@ -97,9 +97,9 @@ class TestCredentials(unittest.TestCase):
 		"""
 		test_show_credentials test to check if credentials saved is displayed
 		"""
-		self.new_cred = Credentials("komo", "james", "IG", "pswd001")
+		self.new_cred = Credentials("cheru", "Dennis", "IG", "pswd001")
 		self.new_cred.save_cred()
-		self.another_cred = Credentials("komo", "james", "IG", "pswd001")
+		self.another_cred = Credentials("cheru", "Dennis", "IG", "pswd001")
 		self.another_cred.save_cred()
 		self.assertEqual(
 			len(Credentials.show_credentials(self.new_cred.username)), 1)
@@ -108,7 +108,7 @@ class TestCredentials(unittest.TestCase):
 		"""
 		test_find_platform test to search credentials per account
 		"""
-		self.new_cred = Credentials("komo", "james", "IG", "pswd001")
+		self.new_cred = Credentials("cheru", "Dennis", "IG", "pswd001")
 		self.new_cred.save_cred()
 		IG = Credentials("cheru", "Dennis", "IG", "pswd001")
 		IG.save_cred()
@@ -119,9 +119,9 @@ class TestCredentials(unittest.TestCase):
 		test_del_cred test to delete credentials from the credentials list
 		"""
 		Credentials.credentials_info = []
-		self.new_cred = Credentials("komo", "james", "IG", "pswd001")
+		self.new_cred = Credentials("cheru", "Dennis", "IG", "pswd001")
 		self.new_cred.save_cred()
-		IG = Credentials("komo", "james", "IG", "pswd001")
+		IG = Credentials("cheru", "Dennis", "IG", "pswd001")
 		IG.save_cred()
 		del_item = Credentials.find_platform('IG')
 		self.assertEqual(Credentials.del_cred(del_item), "Deleted")
