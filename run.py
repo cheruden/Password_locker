@@ -16,3 +16,8 @@ def user_check(first,pwd):
     '''
     checks whether user exists before creating account
     '''
+    return Credentials.user_check(first,pwd):
+    '''
+    creates Credentials to be saved
+    '''
+    
