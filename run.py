@@ -102,19 +102,11 @@ def main():
                 print("Goodbye!!")
                 break
             elif user_input =='lo':
-						
-						
-						
-						
-						
-					
-	
-		elif user_input == 'lo':
-			print("Thank you for using Komo Password Vault")
-			break
-			
-		else:
-			print("Wrong Input! Kindly select again")
+                print("Thank you for using Cheru Password Locker")
+                break
+
+            else:
+                print("wrong Input! Kindly select again")
 	
 if __name__ == '__main__':
 	main()		
