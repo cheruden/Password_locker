@@ -1,4 +1,4 @@
-# import unittest
+import unittest
 import pyperclip
 from user_cred_classes import User, Credential
 
