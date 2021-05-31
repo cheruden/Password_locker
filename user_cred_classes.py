@@ -1,103 +1,104 @@
-import string
+# import pyperclip
 import random
+import string
+
+# Global Variables
+global users_list
 
 
-class Users:
-
+class User:
 	'''
-		Class that contains the users methods and attributes
+	Class to create user accounts and save their information
 	'''
+	# Class Variables
+	# global users_list
+	users_list = []
 
-	user_info = []
+	def __init__(self, first_name, last_name, password):
+		'''
+		Method to define the properties for each user object will hold.
+		'''
 
-	def __init__(self, first, last, password):
-		"""
-			Information needed to create a password saving object
-		"""
-		self.first = first
-		self.last = last
+		# instance variables
+		self.first_name = first_name
+		self.last_name = last_name
 		self.password = password
 
-	def create_user(self):
-		"""
-			Create an instance of a new user
-		"""
+	def save_user(self):
+		'''
+		Function to save a newly created user instance
+		'''
+		User.users_list.append(self)
 
-		self.user_info.append(self)
 
-
-class Credentials(Users):
-	"""
-		Class that holds credential information and associated methods eg. add, remove and view creadentials
-	"""
-
-	credentials_info = []
-	user_cred_info = []
-
-	@classmethod
-	def user_check(cls, first, password):
-		"""
-			Checks for matching credentials in user_info
-		"""
-
-		for cred in cls.user_info:
-			if cred.first == first and cred.password == password:
-				identity = cred.first
-		return identity
-
-	def __init__(self, name, username, platform, pwd):
-		"""
-			Initialize new Credentials object
-		"""
-
-		self.name = name
-		self.username = username
-		self.platform = platform
-		self.pwd = pwd
-
-	def save_cred(self):
-		"""
-			Saves credentials in credentials_info list
-		"""
-		Credentials.credentials_info.append(self)
-
-	def password_gen(size):
-		"""
-			Generate a random string of letters and digits 
-		"""
-		lettersAndNumbers = string.ascii_letters + string.digits
-		password = ''.join(random.choice(lettersAndNumbers)
-		                   for i in range(int(size)))
-		return password
+class Credential:
+	'''
+	Class to create  account credentials, generate passwords and save their information
+	'''
+	# Class Variables
+	credentials_list = []
+	user_credentials_list = []
 
 	@classmethod
-	def show_credentials(cls, username):
-		"""
-			Shows the saved credentials
-		"""
+	def check_user(cls, first_name, password):
+		'''
+		Method that checks if the name and password entered match entries in the users_list
+		'''
+		current_user = ''
+		for user in User.users_list:
+			if (user.first_name == first_name and user.password == password):
+				current_user = user.first_name
+		return current_user
 
-		for cred in cls.credentials_info:
-			if cred.username == username:
-				cls.user_cred_info.append(cred)
-			return cls.user_cred_info
+	def __init__(self, user_name, site_name, account_name, password):
+		'''
+		Method to define the properties for each user object will hold.
+		'''
+
+		# instance variables
+		self.user_name = user_name
+		self.site_name = site_name
+		self.account_name = account_name
+		self.password = password
+
+	def save_credentials(self):
+		'''
+		Function to save a newly created user instance
+		'''
+		# global users_list
+		Credential.credentials_list.append(self)
+
+	def generate_password(size=8, char=string.ascii_uppercase+string.ascii_lowercase+string.digits):
+		'''
+		Function to generate an 8 character password for a credential
+		'''
+		gen_pass = ''.join(random.choice(char) for _ in range(size))
+		return gen_pass
 
 	@classmethod
-	def find_platform(cls, platform):
-		"""
-			Finds the platform's credentials
-		"""
-
-		for cred in cls.credentials_info:
-			if cred.platform == platform:
-				return cred
+	def display_credentials(cls, user_name):
+		'''
+		Class method to display the list of credentials saved
+		'''
+		user_credentials_list = []
+		for credential in cls.credentials_list:
+			if credential.user_name == user_name:
+				user_credentials_list.append(credential)
+		return user_credentials_list
 
 	@classmethod
-	def del_cred(cls, cred):
-		"""
-			Deletes credentials saved, and used together with the find platform method
-		"""
+	def find_by_site_name(cls, site_name):
+		'''
+		Method that takes in a site_name and returns a credential that matches that site_name.
+		'''
+		for credential in cls.credentials_list:
+			if credential.site_name == site_name:
+				return credential
 
-		for credential in cls.credentials_info:
-			if credential == cred:
-				del credential
-				return "Deleted"
+	@classmethod
+	def copy_credential(cls, site_name):
+		'''
+		Class method that copies a credential's info after the credential's site name is entered
+		'''
+		find_credential = Credential.find_by_site_name(site_name)
+		return pyperclip.copy(find_credential.password)
